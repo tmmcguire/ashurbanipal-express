@@ -1,0 +1,14 @@
+{
+  "name": "ashurbanipal-express",
+  "version": "0.1.0",
+  "description": "Ashurbanipal web server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tommy M. McGuire <mcguire@crsr.net>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
