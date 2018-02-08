@@ -8,6 +8,9 @@ var app     = express();
 var Style = require('./style.js');
 var sfile = new Style("./data/gutenberg.pos");
 
+var Metadata = require ('./metadata.js');
+var metadata = new Metadata('./data/gutenberg.metadata');
+
 function getDefault(req, res) {
   return res.status(400).send('Unimplemented');
 }
@@ -20,6 +23,7 @@ function getStyle(req, res) {
   let start = Number.parseInt(req.query.start);
   let limit = Number.parseInt(req.query.limit);
   let results = sfile.results(etextNo, start, limit);
+  results.map(r => metadata.decorate(r));
   if (results === undefined) {
     return res.status(404).send('not found');
   } else {
@@ -36,9 +40,8 @@ app.use(function(req, res, next) {
 });
 app.use(function(err, req, res, next) {
   res.status(500);
-  res.render('error', {
-    error: err
-  });
+  console.error(err);
+  res.end('error');
 });
 
 app.listen(3000, () => console.log('Listening on port 3000'));
